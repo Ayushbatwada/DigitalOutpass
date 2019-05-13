@@ -3,10 +3,12 @@ package com.example.pratik.digitaloutpass;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import android.os.Bundle;
@@ -44,12 +46,14 @@ import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -90,6 +94,7 @@ public class EditProfileFragment extends Fragment {
     public EditProfileFragment() {
         // Required empty public constructor
     }
+
 
 
     public static EditProfileFragment newInstance(FirebaseUser curUser) {
@@ -193,15 +198,17 @@ public class EditProfileFragment extends Fragment {
             }
             File curUserImgFile = new File(getActivity().getFilesDir(), FILE_NAME);
 
-            //Bitmap curUserImg = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(curUserImgFile));
-            if (curUserImgFile.exists()) {
+            ContextWrapper cw = new ContextWrapper(getContext());
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File mypath=new File(directory,FILE_NAME+".jpg");
+            if (mypath.exists()) {
 //                Glide.with(this)
 //                        .load(curUserImgFile)
 //                        .into(prof);
                 Bitmap bitmap[] = new Bitmap[1];
                 Glide.with(getActivity())
                         .asBitmap()
-                        .load(curUserImgFile)
+                        .load(mypath)
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -252,12 +259,29 @@ public class EditProfileFragment extends Fragment {
         File file = new File(getActivity().getFilesDir(), FILE_NAME);
         if (file.exists()) {
             Toast.makeText(getActivity(), "File already exists,overwriting", Toast.LENGTH_SHORT).show();
+            getContext().deleteFile(FILE_NAME);
+           if(file.delete()){
+               Log.d("File deletion", "saveImage: "+FILE_NAME +" deleted successfully");;
+           }
+           else{
+               Log.d("File deletion", "saveImage: unable to delete");
+           }
         }
         //FileOutputStream fileOutputStream = new FileOutputStream(file);
         try {
-            image.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(file));
-            Toast.makeText(getActivity(), "image saved", Toast.LENGTH_SHORT).show();
+            FileOutputStream outputStream = new FileOutputStream(file);
+            if(image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)) {
+                Toast.makeText(getActivity(), "image saved", Toast.LENGTH_SHORT).show();
+                Log.d("Image save", "saveImage: Image saved");
+                outputStream.close();
+                Log.d(TAG, "saveImage: output stream closed");
+            }
+            else{
+                Log.d(TAG, "saveImage: unable to save image");
+            }
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 //        uploadImageToFirebase();
@@ -286,7 +310,7 @@ public class EditProfileFragment extends Fragment {
                 Bitmap image = null;
                 try {
                     image = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageHoldUri);
-                    saveImage(image);
+                    saveToInternalStorage(image,FILE_NAME);
                 } catch (IOException e) {
 //                    e.printStackTrace();
                     Toast.makeText(getActivity(), "Unable to save file locally", Toast.LENGTH_SHORT).show();
@@ -321,9 +345,10 @@ public class EditProfileFragment extends Fragment {
         final long phoneno;
 
         username = nameS.getText().toString().trim();
-        phoneno = Long.parseLong(phone.getText().toString());
 
-        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(String.valueOf(phoneno))) {
+        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(phone.getText().toString())) {
+            phoneno = Long.parseLong(phone.getText().toString());
+
 
             if (imageHoldUri != null) {
                 mProgress = ProgressDialog.show(getActivity(), "Saving profile", "Please wait...");
@@ -467,5 +492,45 @@ public class EditProfileFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void loadImageFromStorage(String path)
+    {
+
+        try {
+            File f=new File(path, "profile.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+//            ImageView img=(ImageView)findViewById(R.id.imgPicker);
+//            img.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,fileName+".jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 }

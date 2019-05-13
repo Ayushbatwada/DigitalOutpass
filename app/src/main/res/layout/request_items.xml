@@ -1,188 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
     app:cardBackgroundColor="#EBFCFCC4"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp"
     app:cardPreventCornerOverlap="false"
     app:contentPadding="5dp"
-    android:layout_marginVertical="10dp"
     app:layout_goneMarginBottom="1dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="4dp">
-
-        <ImageView
-            android:id="@+id/StudentImage"
-            android:layout_width="93dp"
-            android:layout_height="117dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="275dp"
-            android:layout_marginRight="275dp"
-            android:contentDescription="TODO"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.421"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.097"
-            app:srcCompat="@drawable/ic_person" />
-
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="131dp"
-            android:layout_height="78dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:autoSizeMaxTextSize="20sp"
-            android:text="Name"
-            android:textSize="24sp"
-            app:autoSizeTextType="uniform"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.489"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewOutpassId"
-            android:layout_width="93dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:text="1234"
-            android:textSize="20sp"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintBottom_toTopOf="@+id/textViewTo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toEndOf="@+id/textViewName"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewLeavingDate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:drawableLeft="@drawable/ic_today"
-            android:drawablePadding="4dp"
-            android:text="Leaving Date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="18sp"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintBottom_toTopOf="@+id/deny"
-            app:layout_constraintEnd_toStartOf="@+id/textViewReturnDate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/StudentImage"
-            app:layout_constraintVertical_bias="0.0" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewReturnDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="8dp"
-            android:drawableLeft="@drawable/ic_today"
-            android:drawablePadding="4dp"
-            android:text="Return Date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textSize="18sp"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintBottom_toTopOf="@+id/accept"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewLeavingDate"
-            app:layout_constraintTop_toBottomOf="@+id/StudentImage" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/ic_place"
-            android:text="FROM"
-            android:textSize="22sp"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintBottom_toTopOf="@+id/textViewLeavingDate"
-            app:layout_constraintEnd_toStartOf="@+id/textViewTo"
-            app:layout_constraintStart_toEndOf="@+id/StudentImage"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName"
-            app:layout_constraintVertical_bias="1.0" />
+                <ImageView
+                    android:id="@+id/StudentImage"
+                    android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:contentDescription="TODO" />
 
-        <TextView
-            android:id="@+id/textViewTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/ic_place"
-            android:text="TO"
-            android:textSize="22sp"
-            app:fontFamily="sans-serif-medium"
-            app:layout_constraintBottom_toTopOf="@+id/textViewReturnDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewFrom"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName"
-            app:layout_constraintVertical_bias="1.0" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
-        <Button
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="5dp"
+                        >
 
-            android:id="@+id/deny"
-            android:layout_width="129dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="19dp"
-            android:layout_marginBottom="8dp"
-            android:background="#EE0D0D"
-            android:text="Deny"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/accept"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewLeavingDate" />
+                        <TextView
+                            android:id="@+id/textViewName"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="20sp"
+                            android:text="Name"
+                            android:textSize="24sp"
+                            app:autoSizeTextType="uniform"
+                            app:fontFamily="sans-serif-medium"
+                            />
 
-        <Button
-            android:id="@+id/accept"
-            android:layout_width="135dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background=" #25CEA3"
-            android:text="Accept"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/deny"
-            app:layout_constraintTop_toBottomOf="@+id/textViewReturnDate" />
+                        <TextView
+                            android:id="@+id/textViewOutpassId"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="1234"
+                            android:textSize="20sp"
+                            app:fontFamily="sans-serif-medium"
+                            />
 
 
-    </android.support.constraint.ConstraintLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="5dp"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="137dp">
+
+
+                        <TextView
+
+                            android:id="@+id/textViewFrom"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_place"
+                            android:text="FROM"
+                            android:textSize="22sp"
+                            app:fontFamily="sans-serif-medium"
+                            />
+
+                        <TextView
+
+                            android:id="@+id/textViewTo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_place"
+                            android:text="TO"
+                            android:textSize="22sp"
+                            app:fontFamily="sans-serif-medium"
+                            app:layout_constraintBottom_toTopOf="@+id/textViewReturnDate"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textViewFrom"
+                            app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/textViewLeavingDate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_today"
+                    android:drawablePadding="4dp"
+                    android:text="Leaving Date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="18sp"
+                    app:fontFamily="sans-serif-medium"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewReturnDate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_today"
+                    android:drawablePadding="4dp"
+                    android:text="Return Date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="18sp"
+                    app:fontFamily="sans-serif-medium"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/textViewName"
+                tools:layout_editor_absoluteX="25dp">
+
+                <Button
+
+                    android:id="@+id/deny"
+                    android:layout_width="0dp"
+                    android:layout_height="37dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="#EE0D0D"
+                    android:text="Deny"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    />
+
+
+                <Button
+
+                    android:id="@+id/accept"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+
+                    android:layout_weight="1"
+                    android:background=" #25CEA3"
+                    android:text="Accept"
+                    android:textSize="22sp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
 
 </android.support.v7.widget.CardView>
