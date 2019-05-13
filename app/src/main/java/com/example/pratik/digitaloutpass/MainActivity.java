@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference hostelsRef = FirebaseDatabase.getInstance().getReference("hostels");
     String caretakerId = "";
     String caretakerToken = "";
+    String curUserName;
 
     ImageView dpStudentNavHeader;
 
@@ -353,8 +354,20 @@ public class MainActivity extends AppCompatActivity
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     caretakerToken = dataSnapshot.getValue(String.class);
-                                    NotificationHelper.sendNotification(caretakerToken, "New outpass request", "Please verify this outpass");
-                                }
+                                    curUserRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            curUserName = dataSnapshot.getValue(String.class);
+                                            NotificationHelper.sendNotification(caretakerToken, curUserName +" is requesting outpass from "+ from + " to "+to, "Please verify this outpass");
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    }
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
