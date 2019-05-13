@@ -347,6 +347,22 @@ public class OutpassRequestFragment extends Fragment {
                                     }
                                 });
                             }
+                            else{
+                                currentItem.setVerified(true);
+                                outpassesRef.child("" + currentItem.getId()).child("verified").setValue(true);
+                                usersRef.child(currentItem.getPersonName()).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        String studentToken = dataSnapshot.getValue(String.class);
+                                        NotificationHelper.sendNotification(studentToken, "Outpass verified", "Your outpass from " + currentItem.getFrom() + " to " + currentItem.getTo() + " has been verified");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
                         }
 
                         @Override
