@@ -46,7 +46,9 @@ public class OutpassRequestFragment extends Fragment {
     DatabaseReference usersRef;
     DatabaseReference hostelsRef;
     DatabaseReference outpassesRef;
+    DatabaseReference cref;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+    Boolean cRight;
 
     String hostelOfCaretaker;
 
@@ -72,6 +74,8 @@ public class OutpassRequestFragment extends Fragment {
         usersRef = database.child("users");
         hostelsRef = database.child("hostels");
         outpassesRef = database.child("outpasses");
+        cref = database.child("careRight");
+
 
         usersRef.child(curUser.getUid()).child("hostel").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -304,13 +308,45 @@ public class OutpassRequestFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(getContext(), "cliked", Toast.LENGTH_SHORT).show();
-                    currentItem.setVerified(true);
-                    outpassesRef.child(""+currentItem.getId()).child("verified").setValue(true);
-                    usersRef.child(currentItem.getPersonName()).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                    usersRef.child(curUser.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String studentToken = dataSnapshot.getValue(String.class);
-                            NotificationHelper.sendNotification(studentToken, "Outpass verified", "Your outpass from "+currentItem.getFrom()+" to "+currentItem.getTo()+" has been verified");
+                            String role = dataSnapshot.child("role").getValue(String.class);
+                            if(role.equals("CARETAKER")){
+                                String hostel = dataSnapshot.child("hostel").getValue(String.class);
+                                cref.child(hostel).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        cRight = dataSnapshot.getValue(Boolean.class);
+                                        if(!cRight){
+                                            Toast.makeText(getContext(),"You are not authorised",Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            currentItem.setVerified(true);
+                                            outpassesRef.child("" + currentItem.getId()).child("verified").setValue(true);
+                                            usersRef.child(currentItem.getPersonName()).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    String studentToken = dataSnapshot.getValue(String.class);
+                                                    NotificationHelper.sendNotification(studentToken, "Outpass verified", "Your outpass from " + currentItem.getFrom() + " to " + currentItem.getTo() + " has been verified");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
                         }
 
                         @Override
@@ -318,6 +354,7 @@ public class OutpassRequestFragment extends Fragment {
 
                         }
                     });
+
                 }
             });
 

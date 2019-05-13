@@ -11,6 +11,12 @@
             android:id="@+id/navEditWarden"
             android:icon="@drawable/ic_edit_profile"
             android:title="Edit Profile"/>
+        <item
+            android:id="@+id/navCareRight"
+            android:icon="@drawable/ic_edit_profile"
+            android:title="Care Taker Rights">
+
+        </item>
         <item android:icon="@drawable/logout" android:title="Log out" android:id="@+id/logout_warden_nav"/>
 
     </group>

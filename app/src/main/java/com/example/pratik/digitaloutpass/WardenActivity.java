@@ -29,7 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 public class WardenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         MyStudentsFragment.OnFragmentInteractionListener,
         OutpassRequestFragment.OnFragmentInteractionListener,
-        EditProfileFragment.OnFragmentInteractionListener {
+        EditProfileFragment.OnFragmentInteractionListener,
+        CaretakerRight.OnFragmentInteractionListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     FirebaseAuth mAuth;
@@ -120,6 +121,8 @@ public class WardenActivity extends AppCompatActivity implements NavigationView.
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit();
                 break;
+
+
             case R.id.pendingOutpasses:
                 OutpassRequestFragment outpassRequestFragment = OutpassRequestFragment.newInstance();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_warden_relative, outpassRequestFragment)
@@ -140,6 +143,14 @@ public class WardenActivity extends AppCompatActivity implements NavigationView.
                 EditProfileFragment editProfileFragment = EditProfileFragment.newInstance(FirebaseAuth.getInstance().getCurrentUser());
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_warden_relative, editProfileFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+                break;
+
+            case R.id.navCareRight:
+                CaretakerRight caretakerRight = CaretakerRight.newInstance();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_warden_relative, caretakerRight)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit();
                 break;

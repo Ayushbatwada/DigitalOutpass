@@ -39,6 +39,7 @@ public class VerificationFragment extends Fragment {
     private TextView tvEmailVer;
     DatabaseReference userDatabase;
     private Button btnSign;
+    private TextView tvAlVer;
 
 
     private OnFragmentInteractionListener mListener;
@@ -76,6 +77,18 @@ public class VerificationFragment extends Fragment {
 
         tvEmailVer = v.findViewById(R.id.tvEmailVer);
         btnSign = v.findViewById(R.id.btnsignOutVer);
+        tvAlVer = v.findViewById(R.id.tvAlVer);
+
+        tvAlVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if(user.isEmailVerified()){
+                    startActivity(new Intent(getContext(),MainActivity.class));
+                }
+
+            }
+        });
 
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +130,7 @@ public class VerificationFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(getContext(), "Verifiaction email sent",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Verification email sent",Toast.LENGTH_SHORT).show();
                                 tvEmailVer.setText("Email Sent Please verify and login again");
                             }
                         }
@@ -132,27 +145,40 @@ public class VerificationFragment extends Fragment {
 //                        }
 //                    },0,3000);
             }
-
-
-
-                final Handler handler = new Handler();
-                final Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        //Toast.makeText(getContext(), "aknf",Toast.LENGTH_SHORT).show();
-                        if(user.isEmailVerified()){
-                            Toast.makeText(getContext(), "aknf",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getContext(), MainActivity.class));
-                        }
-                        handler.postDelayed(this,500);
-
-
-
-
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(!user.isEmailVerified())
+                        handler.postDelayed(this, 1000);
+                    else {
+                        // do actions
+                        startActivity(new Intent(getContext(),MainActivity.class));
                     }
-                };
+                }
+            }, 1000);
+        }
 
-                runnable.run();
+
+
+//                final Handler handler = new Handler();
+//                final Runnable runnable = new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        //Toast.makeText(getContext(), "aknf",Toast.LENGTH_SHORT).show();
+//                        if(user.isEmailVerified()){
+//                            Toast.makeText(getContext(), "aknf",Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(getContext(), MainActivity.class));
+//                        }
+//                        handler.postDelayed(this,500);
+//
+//
+//
+//
+//                    }
+//                };
+//
+//                runnable.run();
 
 
 
@@ -165,7 +191,7 @@ public class VerificationFragment extends Fragment {
 
 
 
-        }
+
 
 
 
