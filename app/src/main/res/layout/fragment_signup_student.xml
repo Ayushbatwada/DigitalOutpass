@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal|center"
+    android:background="@drawable/signup"
     tools:context=".SignupStudentFragment">
 
     <EditText

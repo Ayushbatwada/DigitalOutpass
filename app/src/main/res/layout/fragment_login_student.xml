@@ -5,8 +5,7 @@
     android:id="@+id/rl_login_student"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8BC34A"
-
+    android:background="@drawable/loginpage"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".LoginStudentFragment">
@@ -15,43 +14,52 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:fontFamily="sans-serif-black"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Digital Outpass"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/etEmailLoginStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="80dp"
         android:layout_marginTop="20dp"
         android:drawableStart="@drawable/email"
         android:drawablePadding="5dp"
         android:ems="10"
         android:hint="Enter email"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <EditText
         android:id="@+id/etPasswordLoginStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginHorizontal="80dp"
         android:drawableStart="@drawable/password_lock"
         android:drawablePadding="5dp"
         android:ems="10"
         android:hint="Enter password"
-        android:inputType="textPassword" />
-
+        android:inputType="textPassword"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
     <Button
         android:id="@+id/bLogin"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPasswordLoginStudent"
+        android:textStyle="bold|italic"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:text="Login" />
+        android:backgroundTint="#B7FFFFFF"
+        android:backgroundTintMode="add"
+        android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#DD7035"
+        android:textSize="18sp" />
 
     <!--<Button-->
     <!--android:layout_width="wrap_content"-->
@@ -64,11 +72,13 @@
         android:id="@+id/tvGoToSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp" />
+        android:textStyle="normal"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvForgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"/>
+        android:textStyle="normal"
+        android:textSize="20dp"/>
 </LinearLayout>

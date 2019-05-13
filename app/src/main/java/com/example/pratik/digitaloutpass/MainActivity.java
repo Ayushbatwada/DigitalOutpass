@@ -237,6 +237,7 @@ public class MainActivity extends AppCompatActivity
             MyOutpassesFragment outpassesFragment = MyOutpassesFragment.newInstance();
             fragmentManager.beginTransaction().replace(R.id.content_main_relative, outpassesFragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                     .commit();
 
         }
@@ -246,6 +247,7 @@ public class MainActivity extends AppCompatActivity
             EditProfileFragment editProfileFragment = EditProfileFragment.newInstance(curUser);
             fragmentManager.beginTransaction().replace(R.id.content_main_relative,editProfileFragment)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                     .commit();
             //open edit profile fragment here
         }
