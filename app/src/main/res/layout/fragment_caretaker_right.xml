@@ -4,22 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CaretakerRight"
-    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/signup">
 
     <Switch
         android:id="@+id/swCare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enable Caretaker"
-        android:textSize="24sp"/>
+        android:layout_gravity="center|center_vertical"
+        android:gravity="center"
+        android:textSize="24sp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvCare"
+        android:layout_gravity="bottom"
         android:textSize="24sp"
-        android:text="When Enabled Caretaker can verify outpass"/>
+        android:text="When Enabled Caretaker can verify outpass"
+        android:layout_margin="10dp"/>
 
 
 </LinearLayout>
